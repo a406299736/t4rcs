@@ -1,6 +1,8 @@
 <?php
 namespace A406299736\T4rcs\RateLimiter;
 
+use A406299736\T4rcs\Http;
+
 /**
  * User: Jin's
  * Date: 2023/4/11 16:22

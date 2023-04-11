@@ -1,4 +1,5 @@
 <?php
+namespace A406299736\T4rcs;
 
 /**
  * User: Jin's
