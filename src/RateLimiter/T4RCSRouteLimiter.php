@@ -1,5 +1,5 @@
 <?php
-namespace A406299736\t4rcs\RateLimiter;
+namespace A406299736\T4rcs\RateLimiter;
 
 /**
  * User: Jin's
