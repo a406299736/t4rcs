@@ -1,7 +1,6 @@
 {
     "name": "a406299736/t4rcs",
     "description": "风控嵌入",
-    "license": "20230411",
     "autoload": {
         "psr-4": {
             "A406299736\\T4rcs\\": "src/"
@@ -12,5 +11,7 @@
             "name": "Jins"
         }
     ],
-    "require": {}
+    "require": {
+        "php": ">=7.4"
+    }
 }
