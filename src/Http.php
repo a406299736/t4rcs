@@ -9,7 +9,7 @@ namespace A406299736\T4rcs;
  */
 class Http
 {
-    public static function postBody($url, $data, $successCode = 0)
+    public static function postBody($url, $data, $successCode = 0, &$httpRes = null)
     {
         if (is_array($data)) $data = json_encode($data, 64|256);
 
@@ -26,6 +26,7 @@ class Http
 
         $data = curl_exec($ch);
         curl_close($ch);
+        if ($httpRes) $httpRes = $data;
         if (!$data) return false;
 
         $data = json_decode($data, true);

@@ -13,6 +13,8 @@ trait T4RCSRouteLimiter
 {
     private $defaultRouteChart = '*';
 
+    private $res;
+
     // 请求接口地址
     protected abstract function getRequestUrl() :string;
 
@@ -37,10 +39,16 @@ trait T4RCSRouteLimiter
         $url = $this->getRequestUrl();
         if (!$url) $this->thr('getRequestUrl()返回空字符');
 
-        $res = Http::postBody($url, $this->params());
+        $res = Http::postBody($url, $this->params(), 0, $fail);
+        $this->res = $fail;
         if (!$res) return true;
 
         return $res['passed'] ?? true;
+    }
+
+    protected function httpRes()
+    {
+        return $this->res;
     }
 
     private function params() :array
