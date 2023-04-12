@@ -11,12 +11,14 @@ use A406299736\T4rcs\Http;
  */
 trait T4RCSRouteLimiter
 {
+    private $apiPath = '/inner/api/rate/route/passed';
+
     private $defaultRouteChart = '*';
 
     private $res;
 
-    // 请求接口地址
-    protected abstract function getRequestUrl() :string;
+    // 请求接口域名
+    protected abstract function getDomain() :string;
 
     // 应用名称
     protected abstract function appName() :string;
@@ -36,7 +38,7 @@ trait T4RCSRouteLimiter
     // 是否允许
     protected function allowed() :bool
     {
-        $url = $this->getRequestUrl();
+        $url = $this->getDomain() . $this->apiPath;
         if (!$url) $this->thr('getRequestUrl()返回空字符');
 
         $res = Http::postBody($url, $this->params(), 0, $this->res);
