@@ -26,7 +26,7 @@ class Http
 
         $data = curl_exec($ch);
         curl_close($ch);
-        if ($httpRes) $httpRes = $data;
+        if ($httpRes !== null) $httpRes = $data;
         if (!$data) return false;
 
         $data = json_decode($data, true);

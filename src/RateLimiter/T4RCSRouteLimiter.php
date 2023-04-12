@@ -39,8 +39,7 @@ trait T4RCSRouteLimiter
         $url = $this->getRequestUrl();
         if (!$url) $this->thr('getRequestUrl()返回空字符');
 
-        $res = Http::postBody($url, $this->params(), 0, $fail);
-        $this->res = $fail;
+        $res = Http::postBody($url, $this->params(), 0, $this->res);
         if (!$res) return true;
 
         return $res['passed'] ?? true;
