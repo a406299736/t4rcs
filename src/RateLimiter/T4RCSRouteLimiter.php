@@ -41,10 +41,10 @@ trait T4RCSRouteLimiter
         $url = $this->getDomain() . $this->apiPath;
         if (!$url) $this->thr('getRequestUrl()返回空字符');
 
-        $res = Http::postBody($url, $this->params(), 0, $this->res);
-        if (!$res) return true;
+        $this->res = Http::postBody($url, $this->params(), 0, $this->res);
+        if (!$this->res) return true;
 
-        return $res['passed'] ?? true;
+        return $this->res['passed'] ?? true;
     }
 
     protected function httpRes()
