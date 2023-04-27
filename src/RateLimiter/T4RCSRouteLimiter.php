@@ -15,7 +15,7 @@ trait T4RCSRouteLimiter
 
     private $defaultRouteChart = '*';
 
-    private $res = '';
+    private $limiterRes = '';
 
     // 请求接口域名
     protected abstract function getDomain() :string;
@@ -39,17 +39,17 @@ trait T4RCSRouteLimiter
     public function allowed() :bool
     {
         $url = $this->getDomain() . $this->apiPath;
-        if (!$url) $this->thr('getRequestUrl()返回空字符');
+        if (!$url) throw new \Exception('getRequestUrl()返回空字符');
 
-        $res = Http::postBody($url, $this->params(), 0, $this->res);
+        $res = Http::postBody($url, $this->params(), 0, $this->limiterRes);
         if (!$res) return true; // 超时或未返回结果时，统一返回true，提升容错率
 
         return $res['passed'] ?? true;
     }
 
-    protected function httpRes()
+    protected function httpLimiterRes()
     {
-        return $this->res;
+        return $this->limiterRes;
     }
 
     private function params() :array
@@ -61,10 +61,5 @@ trait T4RCSRouteLimiter
         if (!$route) $route = $this->defaultRouteChart;
 
         return ['app_name' => $appName, 'route' => $route, 'uid' => $this->userId(), 'ip' => $this->ipStr(), 'device_id' => $this->deviceId()];
-    }
-
-    private function thr($msg)
-    {
-        throw new \Exception($msg);
     }
 }

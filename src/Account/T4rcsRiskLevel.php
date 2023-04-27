@@ -20,7 +20,7 @@ trait T4rcsRiskLevel
 
     private $apiPath = '/inner/api/account/risk/level';
 
-    private $httpRes = '';
+    private $httpRiskRes = '';
 
     // 获取账户风险等级对象
     public function risk($appName)
@@ -37,7 +37,7 @@ trait T4rcsRiskLevel
             $this->thr('请调用相关with方法指定uid,ip,device_id参数,不能同时缺省');
         }
 
-        $res = Http::postBody($domain.$this->apiPath, $this->reqParams, 0, $this->httpRes);
+        $res = Http::postBody($domain.$this->apiPath, $this->reqParams, 0, $this->httpRiskRes);
         $this->reqParams = []; // 释放请求参数为初始值
         if ($res) {
             $obj = new RiskLevelData();
@@ -52,9 +52,9 @@ trait T4rcsRiskLevel
     }
 
     // 接口请求返回的原始数据
-    public function httpRes()
+    public function httpRiskRes()
     {
-        return $this->httpRes;
+        return $this->httpRiskRes;
     }
 
     // 用户UID：计算用户风险等级
