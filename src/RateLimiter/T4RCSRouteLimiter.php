@@ -15,7 +15,7 @@ trait T4RCSRouteLimiter
 
     private $defaultRouteChart = '*';
 
-    private $res;
+    private $res = '';
 
     // 请求接口域名
     protected abstract function getDomain() :string;
@@ -36,15 +36,15 @@ trait T4RCSRouteLimiter
     protected abstract function deviceId() :string;
 
     // 是否允许
-    protected function allowed() :bool
+    public function allowed() :bool
     {
         $url = $this->getDomain() . $this->apiPath;
         if (!$url) $this->thr('getRequestUrl()返回空字符');
 
-        $this->res = Http::postBody($url, $this->params(), 0, $this->res);
-        if (!$this->res) return true;
+        $res = Http::postBody($url, $this->params(), 0, $this->res);
+        if (!$res) return true; // 超时或未返回结果时，统一返回true，提升容错率
 
-        return $this->res['passed'] ?? true;
+        return $res['passed'] ?? true;
     }
 
     protected function httpRes()
