@@ -14,6 +14,8 @@ class RiskLevelData
     public $ipRLevel = 1;
     public $deviceIdRLevel = 1;
     public $rLevel;
+    public $code = 0;
+    public $msg='success';
 
     // 综合风险等级
     public function isRisk() :bool

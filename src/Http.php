@@ -34,6 +34,6 @@ class Http
             return $data['data'] ?? [];
         }
 
-        return [];
+        return $data ?? [];
     }
 }
